@@ -12,7 +12,7 @@ namespace TypeClasses
             T Add(T first, T second);
         }
 
-        public static T Sum<T, MonoidT>(IEnumerable<T> xs)
+        public static T Concat<T, MonoidT>(IEnumerable<T> xs)
             where MonoidT : struct, IMonoid<T>
         {
             var monoidT = default(MonoidT);
@@ -40,7 +40,7 @@ namespace TypeClasses
         [Fact]
         public static void Integers()
         {
-            Assert.Equal(10, Monoid.Sum<int, IntegerMonoid>(new[] { 1, 2, 3, 4 }));
+            Assert.Equal(10, Monoid.Concat<int, IntegerMonoid>(new[] { 1, 2, 3, 4 }));
         }
     }
 }
