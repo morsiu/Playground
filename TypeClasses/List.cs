@@ -7,7 +7,7 @@ namespace TypeClasses
     public static class List
     {
         public struct ListFunctor<TInput, TOutput>
-            : Functor.IFunctor<List<TInput>, List<TOutput>, TInput, TOutput>
+            : Prelude.IFunctor<List<TInput>, List<TOutput>, TInput, TOutput>
         {
             public List<TOutput> Fmap(List<TInput> input, Func<TInput, TOutput> function)
             {
@@ -21,14 +21,14 @@ namespace TypeClasses
         }
 
         public struct ListApplicative<TInput, TOutput, TFunctor>
-            : Applicative.IApplicative<
+            : Prelude.IApplicative<
                 List<TInput>,
                 List<TOutput>,
                 List<Func<TInput, TOutput>>,
                 TInput,
                 TOutput,
                 TFunctor>
-            where TFunctor : Functor.IFunctor<List<TInput>, List<TOutput>, TInput, TOutput>
+            where TFunctor : Prelude.IFunctor<List<TInput>, List<TOutput>, TInput, TOutput>
         {
             public List<TOutput> Apply(List<Func<TInput, TOutput>> function, List<TInput> input)
             {

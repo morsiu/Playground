@@ -44,7 +44,8 @@
     <Compile Include="Functor.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Monad.cs" />
-    <Compile Include="Monoid.cs" />
+    <Compile Include="Integer.cs" />
+    <Compile Include="Prelude.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
