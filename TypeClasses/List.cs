@@ -47,6 +47,34 @@ namespace TypeClasses
             }
         }
 
+        public struct ListMonad<TInput, TOutput, TApplicative, TFunctor>
+            : Prelude.IMonand<
+                List<TInput>,
+                List<TOutput>,
+                List<Func<TInput, TOutput>>,
+                TInput,
+                TOutput,
+                TApplicative,
+                TFunctor>
+            where TApplicative : Prelude.IApplicative<List<TInput>, List<TOutput>, List<Func<TInput, TOutput>>, TInput, TOutput, TFunctor>
+            where TFunctor : Prelude.IFunctor<List<TInput>, List<TOutput>, TInput, TOutput>
+        {
+            public List<TOutput> Bind(Func<TInput, List<TOutput>> function, List<TInput> input)
+            {
+                var output = new List<TOutput>();
+                foreach (var x in input)
+                {
+                    output.AddRange(function(x));
+                }
+                return output;
+            }
+
+            public List<TOutput> Return(TOutput output)
+            {
+                return default(TApplicative).Pure(output);
+            }
+        }
+
         [Fact]
         public static void FunctorExample()
         {
@@ -67,5 +95,17 @@ namespace TypeClasses
                     new List<int> { 1, 2, 3 }));
         }
 
+        [Fact]
+        public static void MonadExample()
+        {
+            var monad = default(ListMonad<int, int, ListApplicative<int, int, ListFunctor<int, int>>, ListFunctor<int, int>>);
+            Assert.Equal(
+                new[] { 15, 30 },
+                monad.Bind(
+                    x => monad.Return(x * 3),
+                    monad.Bind(
+                        x => new List<int> { x, x * 2 },
+                        monad.Return(5))));
+        }
     }
 }
