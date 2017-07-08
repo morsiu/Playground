@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Applicative.cs" />
     <Compile Include="Functor.cs" />
+    <Compile Include="List.cs" />
     <Compile Include="Monad.cs" />
     <Compile Include="Monoid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

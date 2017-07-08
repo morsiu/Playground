@@ -4,7 +4,9 @@ namespace TypeClasses
 {
     public static class Monad
     {
-        public interface IMonand<TInputMonad, TOutputMonad, TInput, TOutput, TApplicative, TFunctor>
+        public interface IMonand<TInputMonad, TOutputMonad, TFunctionMonad, TInput, TOutput, TApplicative, TFunctor>
+            where TApplicative : Applicative.IApplicative<TInputMonad, TOutputMonad, TFunctionMonad, TInput, TOutput, TFunctor>
+            where TFunctor : Functor.IFunctor<TInputMonad, TOutputMonad, TInput, TOutput>
         {
             TOutputMonad Return(TOutput output);
 
